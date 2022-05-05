@@ -59,3 +59,32 @@ SELECT return_date, inventory_id FROM sakila.rental where inventory_id in (SELEC
 
 --15  What is the average runtime of all films?
 select avg(length) from sakila.film;
+
+
+-- 16. List the average runtime for every film category.
+ select  c.name as category_name, avg(b.length) as average_length
+ from sakila.film_category a
+ inner join sakila.film b 
+ on a.film_id = b.film_id
+ inner join 
+ sakila.category c 
+ on a.category_id = c.category_id
+  group by a.category_id,c.name ;
+
+--17. List all movies featuring a robot.
+select title, description from sakila.film where description like '%robot%';
+
+-- 18. How many movies were released in 2010?
+select * from sakila.film where release_year = 2010;
+
+--19. Find the titles of all the horror movies.
+ select  c.name as category_name, b.title
+ from sakila.film_category a
+ inner join sakila.film b 
+ on a.film_id = b.film_id
+ inner join 
+ sakila.category c 
+ on a.category_id = c.name like 'Horror';
+
+--0. List the full name of the staff member with the ID of 2
+select  first_name, last_name from sakila.staff where staff_id=2;
