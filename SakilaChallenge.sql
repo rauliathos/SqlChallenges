@@ -29,3 +29,33 @@ select title, length
 
 --10Find all movies that have deleted scenes.
 select title, special_features from film where special_features = 'Deleted Scenes';
+
+--11  Using HAVING, reverse-alphabetically list the last names that are not repeated.
+SELECT last_name FROM actor GROUP BY last_name HAVING COUNT(last_name) > 2 ORDER BY last_name DESC;
+
+--12 Using HAVING, list the last names that appear more than once, from highest to lowest frequency.
+SELECT last_name FROM actor group by last_name HAVING COUNT(last_name) > 1 ORDER BY COUNT(last_name) DESC;
+
+--13Which actor has appeared in the most films?
+SELECT
+  a.actor_id, first_name, last_name,
+  COUNT(a.actor_id) AS `actor_in_films` 
+
+FROM
+  sakila.film_actor a
+inner join 
+sakila.actor b
+on a.actor_id = b.actor_id
+GROUP BY 
+actor_id, first_name, last_name
+ORDER BY 
+  `actor_in_films` DESC
+
+LIMIT 1;
+
+--14 'Academy Dinosaur' has been rented out,
+-- when is it due to be returned?
+SELECT return_date, inventory_id FROM sakila.rental where inventory_id in (SELECT inventory_id FROM sakila.inventory where film_id = (select film_id from sakila.film where title = 'academy dinosaur'));
+
+--15  What is the average runtime of all films?
+select avg(length) from sakila.film;
