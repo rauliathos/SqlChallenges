@@ -86,5 +86,23 @@ select * from sakila.film where release_year = 2010;
  sakila.category c 
  on a.category_id = c.name like 'Horror';
 
---0. List the full name of the staff member with the ID of 2
+--20. List the full name of the staff member with the ID of 2
 select  first_name, last_name from sakila.staff where staff_id=2;
+
+--21. List all the movies that Fred Costner has appeared in.
+
+select title from sakila.film where film_id in (select film_id 
+from sakila.film_actor
+ where actor_id = (select actor_id from sakila.actor where first_name like '%FRED%' and  last_name like '%COSTNER%'));
+
+ --22. How many distinct countries are there?
+select count(distinct country) from sakila.country;
+
+--23. List the name of every language in reverse-alphabetical order.
+select name from sakila.language order by name desc;
+
+--24. List the full names of every actor whose surname ends with '-son' in alphabetical order by their forename.
+select first_name, last_name from sakila.actor where last_name '%son' order by first_name asc;
+
+--Which category contains the most films?
+select count(film_id) from sakila.film_category group by category_id order by count(film_id) desc limit 1  ;
