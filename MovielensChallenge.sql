@@ -24,3 +24,17 @@ on a.movie_id=c.movie_id
  where  age = 24 and gender = 'm'
  and rating = 5
 and d.name = 'Sci-Fi';
+
+
+--4. List the unique titles of each of the movies released on the most popular release day.
+
+
+--5Find the total number of movies in each genre; list the results in ascending numeric order.
+
+ select count(c.id) as numbers_of_movies, name as genre from genres_movies a
+inner join genres b
+on  a.genre_id = b.id
+inner join movies c
+on c.id= a.movie_id
+group by name 
+order by count(c.id) asc;
