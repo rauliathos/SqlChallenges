@@ -12,3 +12,15 @@ on a.id = b.id
 where rating in( select min(rating) from movielens.ratings );
 
 --3. List the unique records for Sci-Fi movies where male 24-year-old students have given 5-star ratings.
+select a.movie_id 
+from genres_movies c
+inner join genres d
+on  c.genre_id = d.id
+inner join 
+movielens.ratings a 
+on a.movie_id=c.movie_id 
+ inner join movielens.users b
+ on a.user_id = b.id
+ where  age = 24 and gender = 'm'
+ and rating = 5
+and d.name = 'Sci-Fi';
