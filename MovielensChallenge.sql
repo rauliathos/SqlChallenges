@@ -28,16 +28,14 @@ and d.name = 'Sci-Fi';
 
 --4. List the unique titles of each of the movies released on the most popular release day.
  select title
- from movies
- where release_Date in
- (select release_date from
- (
- select  release_date
-  from movies
- group by  release_date 
- order by count(release_date)  desc limit 1 
- )
- );
+from movies
+where release_Date = (
+  select release_date 
+    from movies
+    group by release_date
+    order by count(release_date) desc
+  limit 1
+);
 
 --5Find the total number of movies in each genre; list the results in ascending numeric order.
 
